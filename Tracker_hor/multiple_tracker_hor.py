@@ -60,8 +60,8 @@ def getCoord():
 			crd_y[2] = 0
 			crd_x[1] = 0
 			crd_y[1] = 0
-			crd_x[0] = crd[0]
-			crd_y[0] = tmp[0]
+			crd_x[0] = tmp_x
+			crd_y[0] = tmp_y
 			print("Face ", end='')
 			print(cnt+1)
 			print("x = ", end='')
@@ -86,8 +86,8 @@ def getCoord():
 				print("y = ", end='')
 				print(crd_y[cnt])
 			elif(cnt == 1):
-				crd_x[1] = crd[0]
-				crd_y[1] = tmp[0]
+				crd_x[1] = tmp_x
+				crd_y[1] = tmp_y
 				print("Face ", end='')
 				print(cnt+1)
 				print("x = ", end='')
@@ -230,7 +230,7 @@ def getCoord():
 			if(cnt == 5):
 				cnt = 0
 
-		tmpcnt = int(tmp[1])
+		tmpcnt = float(tmp[1])
 		fin_x = (crd_x[0] + crd_x[1] + crd_x[2] + crd_x[3] + crd_x[4])/tmpcnt
 		fin_y = (crd_y[0] + crd_y[1] + crd_y[2] + crd_y[3] + crd_y[4])/tmpcnt
 
