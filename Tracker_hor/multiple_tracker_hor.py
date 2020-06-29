@@ -1,7 +1,9 @@
 import serial
+import sys
 import threading
 import time
 import RPi.GPIO as GPIO
+from pathlib import Path
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -19,8 +21,7 @@ seq = [ [1, 0, 0, 0],
 		[0, 0, 1, 0],
 		[0, 0, 0, 1] ]
 
-ser = serial.Serial('/dev/rfcomm0')
-ser.isOpen()
+b_device = Path("/dev/rfcomm0")
 
 # Coordinates x, y
 crd_x = [0, 0, 0, 0, 0]
@@ -28,22 +29,37 @@ crd_y = [0, 0, 0, 0, 0]
 cnt = 0
 fin_x = 0
 fin_y = 0
+tmp = [0, 0]
+
+exception_flag = 0
 
 def getCoord():
 	while True:
+		global b_device
 		global crd_x
 		global crd_y
-		global ser
 		global cnt
 		global fin_x
 		global fin_y
-		# Read Coordinates String via Bluetooth Communication
-		coord = ser.readline()
-		coord = coord.decode('utf-8')
-		coord = coord[0:-2]
-		crd = coord.split('/')
-		tmp = crd[1].split(',')
-		# tmp[0] => crd_y, tmp[1] => number of faces
+		global exception_flag
+		if(b_device.exists() == True):
+			# Read Coordinates String via Bluetooth Communication
+			try:
+				ser = serial.Serial('/dev/rfcomm0')
+				coord = ser.readline()
+				coord = coord.decode('utf-8')
+				coord = coord[0:-2]
+			except serial.serialutil.SerialException:
+				print("Bluetooth connection lost")
+				exception_flag = 1
+				break
+			else:
+				pass
+			crd = coord.split('/')
+			tmp = crd[1].split(',')
+			# tmp[0] => crd_y, tmp[1] => number of faces
+		else:
+			continue
 
 		tmp_x = float(crd[0])
 		tmp_y = float(tmp[0])
@@ -240,6 +256,12 @@ def runStepper():
 		#global fin_y
 		global ControlPin
 		global seq
+		global exception_flag
+
+		if(exception_flag == 1):
+			exception_flag = 0
+			break
+
 		# Run Stepper Motor to Right
 		if(fin_x > 1000):
 			for halfstep in range(4):
@@ -260,5 +282,12 @@ def getCoord_thread():
 	thread.start()
 
 # Main
-getCoord_thread()
-runStepper()
+while True:
+
+	if (b_device.exists() == True):
+		getCoord_thread()
+		runStepper()
+	else:
+		print("Bluetooth not connected")
+		time.sleep(5)
+			
