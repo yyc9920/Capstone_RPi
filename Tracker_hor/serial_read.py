@@ -56,12 +56,14 @@ def runStepper():
 				for pin in range(4):
 					GPIO.output(ControlPin[pin], seq[halfstep][pin])
 				time.sleep(0.0028)
+			print("Turnning Right")
 		# Run Stepper Motor to Left
 		elif(crd_x < 500):
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
 				time.sleep(0.0028)
+			print("Turnning Left")
 
 # Set getCoord to Thread
 def getCoord_thread():
