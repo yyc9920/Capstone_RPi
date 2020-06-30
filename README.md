@@ -10,7 +10,7 @@ Servo_Motor => Servo Motor Example code
 
 Shell_Script => Shell Scripts to set bluetoothctl discovarable on and wait for device to connected, and run python code to Track Face Horiziontally
 
-[![asciicast](https://asciinema.org/a/qDNrLWVvqWvcVrToFfyReMgWc.svg)](https://asciinema.org/a/qDNrLWVvqWvcVrToFfyReMgWc)
+<script id="asciicast-qDNrLWVvqWvcVrToFfyReMgWc" src="https://asciinema.org/a/qDNrLWVvqWvcVrToFfyReMgWc.js" async></script>
 
 
 Thread => Thread Example code
