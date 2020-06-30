@@ -7,9 +7,9 @@ from pathlib import Path
 # Set GPIO numbering mode
 GPIO.setmode(GPIO.BOARD)
 
-# Set pin 11 as an output, and set servo1 as pin 11 as PWM
+# Set pin 22 as an output, and set servo1 as pin 22 as PWM
 GPIO.setup(22,GPIO.OUT)
-servo1 = GPIO.PWM(22,50) # Note 11 is pin, 50 = 50Hz pulse
+servo1 = GPIO.PWM(22,50) # Note 22 is pin, 50 = 50Hz pulse
 
 servo1.start(0)
 time.sleep(1)
@@ -241,10 +241,11 @@ def getCoord():
 				cnt = 0
 
 		tmpcnt = float(tmp[1])
+		# Calculate the Average of Coordinates
 		fin_x = (crd_x[0] + crd_x[1] + crd_x[2] + crd_x[3] + crd_x[4])/tmpcnt
 		fin_y = (crd_y[0] + crd_y[1] + crd_y[2] + crd_y[3] + crd_y[4])/tmpcnt
 
-def runStepper():
+def runServo():
 	while True:
 		global servo1
 		global fin_x
@@ -260,13 +261,13 @@ def runStepper():
 			time.sleep(0.5)
 			break
 
-		# Run Stepper Motor to Right
+		# Run Servo Motor to Right
 		if(fin_x > 1000):
 			servo1.ChangeDutyCycle(duty)
 			time.sleep(0.15)
 			duty = duty + 0.2
 
-		# Run Stepper Motor to Left
+		# Run Servo Motor to Left
 		elif(fin_x < 500):
 			servo1.ChangeDutyCycle(duty)
 			time.sleep(0.15)
@@ -282,7 +283,7 @@ def getCoord_thread():
 while True:
 	if (b_device.exists() == True):
 		getCoord_thread()
-		runStepper()
+		runServo()
 	else:
 		print("Bluetooth not connected")
 		print("Sleep 5 Seconds")
