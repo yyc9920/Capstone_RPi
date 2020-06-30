@@ -1,5 +1,4 @@
 import serial
-import sys
 import threading
 import time
 import RPi.GPIO as GPIO
@@ -49,7 +48,8 @@ def getCoord():
 				coord = ser.readline()
 				coord = coord.decode('utf-8')
 				coord = coord[0:-2]
-			except serial.serialutil.SerialException:
+			except serial.serialutil.SerialException as e:
+				print(e)
 				print("Bluetooth connection lost")
 				exception_flag = 1
 				break
