@@ -7,5 +7,5 @@ do
 	# Waiting for bluetooth device to be connected
 	# dp12cks34 => chage this to your RPi password
 
-	python3 /home/pi/Capstone_design/Tracker_hor/multiple_tracker_hor.py
+	python3 /home/pi/Capstone_design/Tracker_hor/multiple_tracker_stepper_hor.py
 done
