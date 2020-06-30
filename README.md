@@ -10,16 +10,7 @@ Servo_Motor => Servo Motor Example code
 
 Shell_Script => Shell Scripts to set bluetoothctl discovarable on and wait for device to connected, and run python code to Track Face Horiziontally
 
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="/asciinema-player.css" />
-</head>
-<body>
-  <asciinema-player src="/344332.cast" cols="120" rows="30"></asciinema-player>
-  ...
-  <script src="/asciinema-player.js"></script>
-</body>
-</html>
+<a href="https://asciinema.org/a/qDNrLWVvqWvcVrToFfyReMgWc" target="_blank"><img src="https://asciinema.org/a/qDNrLWVvqWvcVrToFfyReMgWc.svg" /></a>
 
 
 Thread => Thread Example code
