@@ -14,7 +14,6 @@
 ### Shell_Script
 => Shell Scripts to set bluetoothctl discovarable on and wait for device to connected, and run python code to Track Face Horiziontally
 
-![Alt text](./shell.svg)
 <img src="./shell.svg">
 
 
