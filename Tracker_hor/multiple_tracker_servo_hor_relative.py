@@ -276,6 +276,12 @@ def runServo():
             time.sleep(0.15)
             duty = duty + manx_lspeed
 
+        # Forced to manage duty cycle in 2~12(SG90 => duty 2 : degree 0, duty 12 : degree 180)
+        if(duty > 12):
+            duty = 12
+        elif(duty < 2):
+            duty = 2
+
 # Set getCoord to Thread
 def getCoord_thread():
     thread=threading.Thread(target=getCoord)
