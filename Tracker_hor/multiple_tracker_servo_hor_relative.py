@@ -254,6 +254,9 @@ def runServo():
         global exception_flag
         global duty
 
+        manx_rspeed = (fin_x - 1000)/1200
+        manx_lspeed = (fin_x - 500)/1200
+
         if(exception_flag == 1):
             print("test")
             exception_flag = 0
@@ -264,16 +267,14 @@ def runServo():
 
         # Run Servo Motor to Right
         if(fin_x > 1000):
-            manx_rspeed = (fin_x - 1000)/1200
             servo1.ChangeDutyCycle(duty)
-            time.sleep(0.15)
+            time.sleep(0.20)
             duty = duty + manx_rspeed
 
         # Run Servo Motor to Left
         elif(fin_x < 500):
-            manx_lspeed = (fin_x - 500)/1200
             servo1.ChangeDutyCycle(duty)
-            time.sleep(0.15)
+            time.sleep(0.20)
             duty = duty + manx_lspeed
 
         # Forced to manage duty cycle in 2~12(SG90 => duty 2 : degree 0, duty 12 : degree 180)
