@@ -12,7 +12,7 @@
 
 
 ### Shell_Script
-=> Shell Scripts to set bluetoothctl discovarable on and wait for device to connected, and run python code to Track Face Horiziontally
+=> Shell Scripts to set bluetoothctl discovarable on and wait for device to connected, and run python code to Track Face Horizontally
 
 <img src="./shell.svg">
 
@@ -22,4 +22,4 @@
 
 
 ### Tracker_hor
-=> Python code to Track Face Horiziontally
+=> Python code to Track Face Horizontally
