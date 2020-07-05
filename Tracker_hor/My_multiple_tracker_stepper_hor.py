@@ -262,13 +262,13 @@ def runStepper():
 			exception_flag = 0
 			break
 
-		# Run Stepper Motor to Right
+		# Run Stepper Motor to Right!
 		if(fin_x > 550):
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[pin], seq[halfstep][pin])
 				time.sleep(0.0028)
-		# Run Stepper Motor to Left
+		# Run Stepper Motor to Left!
 		elif(fin_x < 450):
 			for halfstep in range(4):
 				for pin in range(4):
