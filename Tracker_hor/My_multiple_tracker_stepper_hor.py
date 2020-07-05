@@ -266,13 +266,13 @@ def runStepper():
 		if(fin_x > 550):
 			for halfstep in range(4):
 				for pin in range(4):
-					GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
+					GPIO.output(ControlPin[pin], seq[halfstep][pin])
 				time.sleep(0.0028)
 		# Run Stepper Motor to Left
 		elif(fin_x < 450):
 			for halfstep in range(4):
 				for pin in range(4):
-					GPIO.output(ControlPin[pin], seq[halfstep][pin])
+					GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
 				time.sleep(0.0028)
 
 # Set getCoord to Thread
