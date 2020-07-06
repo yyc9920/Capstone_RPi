@@ -8,8 +8,13 @@ GPIO.setmode(GPIO.BOARD)
 
 # Set Stepper motor pins to 7, 11, 13, 15 (Depending on Board Number)
 ControlPin = [7, 11, 13, 15]
+# Set Stepper motor pins to 31, 33, 35, 37 (Depending on Board Number)
+ControlPin2 = [31, 33, 35, 37]
 
 for pin in ControlPin:
+	GPIO.setup(pin, GPIO.OUT)
+	GPIO.output(pin,0)
+for pin in ControlPin2:
 	GPIO.setup(pin, GPIO.OUT)
 	GPIO.output(pin,0)
 # Set pins End.
@@ -48,10 +53,12 @@ def getCoord():
 				coord = ser.readline()
 				coord = coord.decode('utf-8')
 				coord = coord[0:-2]
-			except serial.serialutil.SerialException as e:
-				print(e)
+			except serial.serialutil.SerialException:
+				fin_x = 500
+				fin_y = 1000
 				print("Bluetooth connection lost")
 				exception_flag = 1
+				time.sleep(0.5)
 				break
 			else:
 				pass
@@ -250,37 +257,71 @@ def getCoord():
 		fin_x = (crd_x[0] + crd_x[1] + crd_x[2] + crd_x[3] + crd_x[4])/tmpcnt
 		fin_y = (crd_y[0] + crd_y[1] + crd_y[2] + crd_y[3] + crd_y[4])/tmpcnt
 
-def runStepper():
+def runStepperX():
 	while True:
 		global fin_x
+		global fin_y
+		#global fin_y
+		global ControlPin2
+		global seq
+		global exception_flag
+
+		manX_rSpeed = (fin_x - 600)/50000
+		manX_lSpeed = (400 - fin_x)/50000
+
+		if(exception_flag == 1):
+			exception_flag = 0
+			fin_x = 500
+			fin_y = 1000
+			time.sleep(0.5)
+			break
+
+		# Run Stepper Motor to Right
+		if(fin_x > 600):
+			for halfstep in range(4):
+				for pin in range(4):
+					GPIO.output(ControlPin2[pin], seq[halfstep][pin])
+				time.sleep(0.0105 - manX_rSpeed)
+		# Run Stepper Motor to Left
+		elif(fin_x < 400):
+			for halfstep in range(4):
+				for pin in range(4):
+					GPIO.output(ControlPin2[3-pin], seq[halfstep][pin])
+				time.sleep(0.0105 - manX_lSpeed)
+
+def runStepperY():
+	while True:
+		global fin_y
 		#global fin_y
 		global ControlPin
 		global seq
 		global exception_flag
 
-		manx_rspeed = (fin_x - 600)/600
-		manx_lspeed = (fin_x - 400)/600
-
-		if(exception_flag == 1):
-			exception_flag = 0
-			break
+		manY_rSpeed = (fin_y - 1100)/100000
+		manY_lSpeed = (900 - fin_y)/100000
 
 		# Run Stepper Motor to Right
-		if(fin_x > 1000):
+		if(fin_y > 1100):
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[pin], seq[halfstep][pin])
-				time.sleep(0.0028)
+				time.sleep(0.0115 - manY_rSpeed)
 		# Run Stepper Motor to Left
-		elif(fin_x < 500):
+		elif(fin_y < 900):
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-				time.sleep(0.0028)
+				time.sleep(0.0115 - manY_lSpeed)
 
 # Set getCoord to Thread
 def getCoord_thread():
 	thread=threading.Thread(target=getCoord)
+	thread.daemon=True
+	thread.start()
+
+# Set getCoord to Thread
+def runStepperY_thread():
+	thread=threading.Thread(target=runStepperY)
 	thread.daemon=True
 	thread.start()
 
@@ -289,7 +330,8 @@ while True:
 
 	if (b_device.exists() == True):
 		getCoord_thread()
-		runStepper()
+		runStepperY_thread()
+		runStepperX()
 	else:
 		print("Bluetooth not connected")
 		time.sleep(5)
