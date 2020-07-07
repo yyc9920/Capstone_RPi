@@ -297,21 +297,21 @@ def runStepperY():
 		global seq
 		global exception_flag
 
-		manY_rSpeed = (fin_y - 1100)/100000
-		manY_lSpeed = (900 - fin_y)/100000
+		manY_uSpeed = (fin_y - 1100)/100000
+		manY_dSpeed = (900 - fin_y)/100000
 
-		# Run Stepper Motor to Right
+		# Run Stepper Motor Upward
 		if(fin_y > 1100):
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[pin], seq[halfstep][pin])
-				time.sleep(0.0115 - manY_rSpeed)
-		# Run Stepper Motor to Left
+				time.sleep(0.0115 - manY_uSpeed)
+		# Run Stepper Motor to Downward
 		elif(fin_y < 900):
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-				time.sleep(0.0115 - manY_lSpeed)
+				time.sleep(0.0115 - manY_dSpeed)
 
 # Set getCoord to Thread
 def getCoord_thread():
@@ -319,7 +319,7 @@ def getCoord_thread():
 	thread.daemon=True
 	thread.start()
 
-# Set getCoord to Thread
+
 def runStepperY_thread():
 	thread=threading.Thread(target=runStepperY)
 	thread.daemon=True
