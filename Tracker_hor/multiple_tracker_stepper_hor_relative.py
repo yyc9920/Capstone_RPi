@@ -91,6 +91,8 @@ def getCoord():
 			print(crd_x[cnt])
 			print("y = ", end='')
 			print(crd_y[cnt])
+			if(cnt > 0):
+				cnt = 0
 
 		if(tmp[1] == '2'):
 			crd_x[4] = 0
@@ -119,7 +121,7 @@ def getCoord():
 				print(crd_y[cnt])
 
 			cnt += 1
-			if(cnt == 2):
+			if(cnt > 1):
 				cnt = 0
 			
 		if(tmp[1] == '3'):
@@ -146,8 +148,8 @@ def getCoord():
 				print("y = ", end='')
 				print(crd_y[cnt])
 			elif(cnt == 2):
-				crd_x[1] = tmp_x
-				crd_y[1] = tmp_y
+				crd_x[2] = tmp_x
+				crd_y[2] = tmp_y
 				print("Face ", end='')
 				print(cnt+1)
 				print("x = ", end='')
@@ -156,7 +158,7 @@ def getCoord():
 				print(crd_y[cnt])
 
 			cnt += 1
-			if(cnt == 3):
+			if(cnt > 2):
 				cnt = 0
 
 		if(tmp[1] == '4'):
@@ -200,7 +202,7 @@ def getCoord():
 				print(crd_y[cnt])
 
 			cnt += 1
-			if(cnt == 4):
+			if(cnt > 3):
 				cnt = 0
 
 		if(tmp[1] == '5'):
@@ -250,12 +252,16 @@ def getCoord():
 				print("y = ", end='')
 				print(crd_y[cnt])
 			cnt += 1
-			if(cnt == 5):
+
+			if(cnt > 4):
 				cnt = 0
 
 		tmpcnt = float(tmp[1])
 		fin_x = (crd_x[0] + crd_x[1] + crd_x[2] + crd_x[3] + crd_x[4])/tmpcnt
 		fin_y = (crd_y[0] + crd_y[1] + crd_y[2] + crd_y[3] + crd_y[4])/tmpcnt
+		print(fin_x)
+		print(fin_y)
+
 
 def runStepperX():
 	while True:
@@ -311,7 +317,7 @@ def runStepperY():
 			for halfstep in range(4):
 				for pin in range(4):
 					GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-				time.sleep(0.0115 - manY_dSpeed)
+				time.sleep(0.0100 - manY_dSpeed)
 
 # Set getCoord to Thread
 def getCoord_thread():
