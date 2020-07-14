@@ -341,4 +341,3 @@ while True:
 	else:
 		print("Bluetooth not connected")
 		time.sleep(5)
-			
