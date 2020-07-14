@@ -25,9 +25,6 @@ seq = [ [1, 0, 0, 0],
 		[0, 0, 1, 0],
 		[0, 0, 0, 1] ]
 
-ser = serial.Serial('/dev/rfcomm0')
-ser.isOpen()
-
 b_device = Path("/dev/rfcomm0")
 
 crd_x = [0, 0, 0, 0, 0]
