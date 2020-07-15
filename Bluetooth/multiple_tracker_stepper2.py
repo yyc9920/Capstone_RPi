@@ -1,4 +1,5 @@
 import serial
+import numpy as np
 import threading
 import time
 import RPi.GPIO as GPIO
@@ -29,10 +30,10 @@ b_device = Path("/dev/rfcomm0")
 
 crd_x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 crd_y = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+faceInfo = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 cnt = 0
 fin_x = 0
 fin_y = 0
-tmp = [0, 0]
 
 exception_flag = 0
 
@@ -44,6 +45,7 @@ def getCoord():
         global fin_x
         global fin_y
         global exception_flag
+        global faceInfo
         if(b_device.exists() == True):
             # Read Coordinates String via Bluetooth Communication
             try:
@@ -64,6 +66,9 @@ def getCoord():
             tmp = crd[1].split(',')
             tmp2 = tmp[1].split(';')
             # crd[0] => crd_x tmp[0] => crd_y, tmp2[0] => face Id, tmp2[1] => number of faces
+
+            faceInfo[int(tmp2[0])%10] = np.array([(int(crd[0]), int(tmp[0]), int(tmp2[0])%10)],
+                        dtype=[('crd_x', (np.int32)), ('crd_y', np.int32), ('id', np.int32)])
 
             if(tmp2[1] == '1'):
                 crd_x=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
