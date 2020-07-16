@@ -45,6 +45,8 @@ def getFaceInfo():
         global exception_flag
         global faceInfo
         global crd
+        global fin_x
+        global fin_y
         global tmp
         global tmp2
         if(b_device.exists() == True):
@@ -86,390 +88,405 @@ def getCoord():
         if(tmp2[1] == '1'):
             crd_x=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             crd_y=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            crd_x[0] = crd[0]
-            crd_y[0] = tmp[0]
-            print("Face ", end='')
-            print(1)
-            print("x = ", end='')
-            print(crd_x[0])
-            print("y = ", end='')
-            print(crd_y[0])
+            while(True):
+                crd_x[0] = crd[0]
+                crd_y[0] = tmp[0]
+                print("Face ", end='')
+                print(1)
+                print("x = ", end='')
+                print(crd_x[0])
+                print("y = ", end='')
+                print(crd_y[0])
+                if(tmp2[1] != '1'):
+                    break
 
         if(tmp2[1] == '2'):
             crd_x=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             crd_y=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            if(int(tmp2[0])%10 == 0):
-                crd_x[0] = faceInfo[0]['crd_x']
-                crd_y[0] = faceInfo[0]['crd_y']
-                print("Face ", end='')
-                print(1)
-                print("x = ", end='')
-                print(crd_x[0])
-                print("y = ", end='')
-                print(crd_y[0])
-            elif(int(tmp2[0])%10 == 1):
-                crd_x[1] = faceInfo[1]['crd_x']
-                crd_y[1] = faceInfo[1]['crd_y']
-                print("Face ", end='')
-                print(2)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 2):
-                crd_x[2] = faceInfo[2]['crd_x']
-                crd_y[2] = faceInfo[2]['crd_y']
-                print("Face ", end='')
-                print(3)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 3):
-                crd_x[3] = faceInfo[3]['crd_x']
-                crd_y[3] = faceInfo[3]['crd_y']
-                print("Face ", end='')
-                print(4)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 4):
-                crd_x[4] = faceInfo[4]['crd_x']
-                crd_y[4] = faceInfo[4]['crd_y']
-                print("Face ", end='')
-                print(5)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 5):
-                crd_x[5] = faceInfo[5]['crd_x']
-                crd_y[5] = faceInfo[5]['crd_y']
-                print("Face ", end='')
-                print(6)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 6):
-                crd_x[6] = faceInfo[6]['crd_x']
-                crd_y[6] = faceInfo[6]['crd_y']
-                print("Face ", end='')
-                print(7)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 7):
-                crd_x[7] = faceInfo[7]['crd_x']
-                crd_y[7] = faceInfo[7]['crd_y']
-                print("Face ", end='')
-                print(8)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 8):
-                crd_x[8] = faceInfo[8]['crd_x']
-                crd_y[8] = faceInfo[8]['crd_y']
-                print("Face ", end='')
-                print(9)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 9):
-                crd_x[9] = faceInfo[9]['crd_x']
-                crd_y[9] = faceInfo[9]['crd_y']
-                print("Face ", end='')
-                print(10)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
+            while(True):
+                if(int(tmp2[0])%10 == 0):
+                    crd_x[0] = faceInfo[0]['crd_x']
+                    crd_y[0] = faceInfo[0]['crd_y']
+                    print("Face ", end='')
+                    print(1)
+                    print("x = ", end='')
+                    print(crd_x[0])
+                    print("y = ", end='')
+                    print(crd_y[0])
+                elif(int(tmp2[0])%10 == 1):
+                    crd_x[1] = faceInfo[1]['crd_x']
+                    crd_y[1] = faceInfo[1]['crd_y']
+                    print("Face ", end='')
+                    print(2)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 2):
+                    crd_x[2] = faceInfo[2]['crd_x']
+                    crd_y[2] = faceInfo[2]['crd_y']
+                    print("Face ", end='')
+                    print(3)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 3):
+                    crd_x[3] = faceInfo[3]['crd_x']
+                    crd_y[3] = faceInfo[3]['crd_y']
+                    print("Face ", end='')
+                    print(4)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 4):
+                    crd_x[4] = faceInfo[4]['crd_x']
+                    crd_y[4] = faceInfo[4]['crd_y']
+                    print("Face ", end='')
+                    print(5)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 5):
+                    crd_x[5] = faceInfo[5]['crd_x']
+                    crd_y[5] = faceInfo[5]['crd_y']
+                    print("Face ", end='')
+                    print(6)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 6):
+                    crd_x[6] = faceInfo[6]['crd_x']
+                    crd_y[6] = faceInfo[6]['crd_y']
+                    print("Face ", end='')
+                    print(7)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 7):
+                    crd_x[7] = faceInfo[7]['crd_x']
+                    crd_y[7] = faceInfo[7]['crd_y']
+                    print("Face ", end='')
+                    print(8)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 8):
+                    crd_x[8] = faceInfo[8]['crd_x']
+                    crd_y[8] = faceInfo[8]['crd_y']
+                    print("Face ", end='')
+                    print(9)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 9):
+                    crd_x[9] = faceInfo[9]['crd_x']
+                    crd_y[9] = faceInfo[9]['crd_y']
+                    print("Face ", end='')
+                    print(10)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                if(tmp2[1] != '2'):
+                    break
 
         if(tmp2[1] == '3'):
             crd_x=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             crd_y=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            if(int(tmp2[0])%10 == 0):
-                crd_x[0] = faceInfo[0]['crd_x']
-                crd_y[0] = faceInfo[0]['crd_y']
-                print("Face ", end='')
-                print(1)
-                print("x = ", end='')
-                print(crd_x[0])
-                print("y = ", end='')
-                print(crd_y[0])
-            elif(int(tmp2[0])%10 == 1):
-                crd_x[1] = faceInfo[1]['crd_x']
-                crd_y[1] = faceInfo[1]['crd_y']
-                print("Face ", end='')
-                print(2)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 2):
-                crd_x[2] = faceInfo[2]['crd_x']
-                crd_y[2] = faceInfo[2]['crd_y']
-                print("Face ", end='')
-                print(3)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 3):
-                crd_x[3] = faceInfo[3]['crd_x']
-                crd_y[3] = faceInfo[3]['crd_y']
-                print("Face ", end='')
-                print(4)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 4):
-                crd_x[4] = faceInfo[4]['crd_x']
-                crd_y[4] = faceInfo[4]['crd_y']
-                print("Face ", end='')
-                print(5)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 5):
-                crd_x[5] = faceInfo[5]['crd_x']
-                crd_y[5] = faceInfo[5]['crd_y']
-                print("Face ", end='')
-                print(6)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 6):
-                crd_x[6] = faceInfo[6]['crd_x']
-                crd_y[6] = faceInfo[6]['crd_y']
-                print("Face ", end='')
-                print(7)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 7):
-                crd_x[7] = faceInfo[7]['crd_x']
-                crd_y[7] = faceInfo[7]['crd_y']
-                print("Face ", end='')
-                print(8)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 8):
-                crd_x[8] = faceInfo[8]['crd_x']
-                crd_y[8] = faceInfo[8]['crd_y']
-                print("Face ", end='')
-                print(9)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 9):
-                crd_x[9] = faceInfo[9]['crd_x']
-                crd_y[9] = faceInfo[9]['crd_y']
-                print("Face ", end='')
-                print(10)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
+            while(True):
+                if(int(tmp2[0])%10 == 0):
+                    crd_x[0] = faceInfo[0]['crd_x']
+                    crd_y[0] = faceInfo[0]['crd_y']
+                    print("Face ", end='')
+                    print(1)
+                    print("x = ", end='')
+                    print(crd_x[0])
+                    print("y = ", end='')
+                    print(crd_y[0])
+                elif(int(tmp2[0])%10 == 1):
+                    crd_x[1] = faceInfo[1]['crd_x']
+                    crd_y[1] = faceInfo[1]['crd_y']
+                    print("Face ", end='')
+                    print(2)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 2):
+                    crd_x[2] = faceInfo[2]['crd_x']
+                    crd_y[2] = faceInfo[2]['crd_y']
+                    print("Face ", end='')
+                    print(3)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 3):
+                    crd_x[3] = faceInfo[3]['crd_x']
+                    crd_y[3] = faceInfo[3]['crd_y']
+                    print("Face ", end='')
+                    print(4)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 4):
+                    crd_x[4] = faceInfo[4]['crd_x']
+                    crd_y[4] = faceInfo[4]['crd_y']
+                    print("Face ", end='')
+                    print(5)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 5):
+                    crd_x[5] = faceInfo[5]['crd_x']
+                    crd_y[5] = faceInfo[5]['crd_y']
+                    print("Face ", end='')
+                    print(6)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 6):
+                    crd_x[6] = faceInfo[6]['crd_x']
+                    crd_y[6] = faceInfo[6]['crd_y']
+                    print("Face ", end='')
+                    print(7)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 7):
+                    crd_x[7] = faceInfo[7]['crd_x']
+                    crd_y[7] = faceInfo[7]['crd_y']
+                    print("Face ", end='')
+                    print(8)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 8):
+                    crd_x[8] = faceInfo[8]['crd_x']
+                    crd_y[8] = faceInfo[8]['crd_y']
+                    print("Face ", end='')
+                    print(9)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 9):
+                    crd_x[9] = faceInfo[9]['crd_x']
+                    crd_y[9] = faceInfo[9]['crd_y']
+                    print("Face ", end='')
+                    print(10)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                if(tmp2[1] != '3'):
+                    break
 
         if(tmp2[1] == '4'):
             crd_x=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             crd_y=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            if(int(tmp2[0])%10 == 0):
-                crd_x[0] = faceInfo[0]['crd_x']
-                crd_y[0] = faceInfo[0]['crd_y']
-                print("Face ", end='')
-                print(1)
-                print("x = ", end='')
-                print(crd_x[0])
-                print("y = ", end='')
-                print(crd_y[0])
-            elif(int(tmp2[0])%10 == 1):
-                crd_x[1] = faceInfo[1]['crd_x']
-                crd_y[1] = faceInfo[1]['crd_y']
-                print("Face ", end='')
-                print(2)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 2):
-                crd_x[2] = faceInfo[2]['crd_x']
-                crd_y[2] = faceInfo[2]['crd_y']
-                print("Face ", end='')
-                print(3)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 3):
-                crd_x[3] = faceInfo[3]['crd_x']
-                crd_y[3] = faceInfo[3]['crd_y']
-                print("Face ", end='')
-                print(4)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 4):
-                crd_x[4] = faceInfo[4]['crd_x']
-                crd_y[4] = faceInfo[4]['crd_y']
-                print("Face ", end='')
-                print(5)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 5):
-                crd_x[5] = faceInfo[5]['crd_x']
-                crd_y[5] = faceInfo[5]['crd_y']
-                print("Face ", end='')
-                print(6)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 6):
-                crd_x[6] = faceInfo[6]['crd_x']
-                crd_y[6] = faceInfo[6]['crd_y']
-                print("Face ", end='')
-                print(7)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 7):
-                crd_x[7] = faceInfo[7]['crd_x']
-                crd_y[7] = faceInfo[7]['crd_y']
-                print("Face ", end='')
-                print(8)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 8):
-                crd_x[8] = faceInfo[8]['crd_x']
-                crd_y[8] = faceInfo[8]['crd_y']
-                print("Face ", end='')
-                print(9)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 9):
-                crd_x[9] = faceInfo[9]['crd_x']
-                crd_y[9] = faceInfo[9]['crd_y']
-                print("Face ", end='')
-                print(10)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
+            while(True):
+                if(int(tmp2[0])%10 == 0):
+                    crd_x[0] = faceInfo[0]['crd_x']
+                    crd_y[0] = faceInfo[0]['crd_y']
+                    print("Face ", end='')
+                    print(1)
+                    print("x = ", end='')
+                    print(crd_x[0])
+                    print("y = ", end='')
+                    print(crd_y[0])
+                elif(int(tmp2[0])%10 == 1):
+                    crd_x[1] = faceInfo[1]['crd_x']
+                    crd_y[1] = faceInfo[1]['crd_y']
+                    print("Face ", end='')
+                    print(2)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 2):
+                    crd_x[2] = faceInfo[2]['crd_x']
+                    crd_y[2] = faceInfo[2]['crd_y']
+                    print("Face ", end='')
+                    print(3)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 3):
+                    crd_x[3] = faceInfo[3]['crd_x']
+                    crd_y[3] = faceInfo[3]['crd_y']
+                    print("Face ", end='')
+                    print(4)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 4):
+                    crd_x[4] = faceInfo[4]['crd_x']
+                    crd_y[4] = faceInfo[4]['crd_y']
+                    print("Face ", end='')
+                    print(5)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 5):
+                    crd_x[5] = faceInfo[5]['crd_x']
+                    crd_y[5] = faceInfo[5]['crd_y']
+                    print("Face ", end='')
+                    print(6)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 6):
+                    crd_x[6] = faceInfo[6]['crd_x']
+                    crd_y[6] = faceInfo[6]['crd_y']
+                    print("Face ", end='')
+                    print(7)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 7):
+                    crd_x[7] = faceInfo[7]['crd_x']
+                    crd_y[7] = faceInfo[7]['crd_y']
+                    print("Face ", end='')
+                    print(8)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 8):
+                    crd_x[8] = faceInfo[8]['crd_x']
+                    crd_y[8] = faceInfo[8]['crd_y']
+                    print("Face ", end='')
+                    print(9)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 9):
+                    crd_x[9] = faceInfo[9]['crd_x']
+                    crd_y[9] = faceInfo[9]['crd_y']
+                    print("Face ", end='')
+                    print(10)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                if(tmp2[1] != '4'):
+                    break
 
         if(tmp2[1] == '5'):
             crd_x=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             crd_y=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            if(int(tmp2[0])%10 == 0):
-                crd_x[0] = faceInfo[0]['crd_x']
-                crd_y[0] = faceInfo[0]['crd_y']
-                print("Face ", end='')
-                print(1)
-                print("x = ", end='')
-                print(crd_x[0])
-                print("y = ", end='')
-                print(crd_y[0])
-            elif(int(tmp2[0])%10 == 1):
-                crd_x[1] = faceInfo[1]['crd_x']
-                crd_y[1] = faceInfo[1]['crd_y']
-                print("Face ", end='')
-                print(2)
-                print("x = ", end='')
-                print(crd_x[1])
-                print("y = ", end='')
-                print(crd_y[1])
-            elif(int(tmp2[0])%10 == 2):
-                crd_x[2] = faceInfo[2]['crd_x']
-                crd_y[2] = faceInfo[2]['crd_y']
-                print("Face ", end='')
-                print(3)
-                print("x = ", end='')
-                print(crd_x[2])
-                print("y = ", end='')
-                print(crd_y[2])
-            elif(int(tmp2[0])%10 == 3):
-                crd_x[3] = faceInfo[3]['crd_x']
-                crd_y[3] = faceInfo[3]['crd_y']
-                print("Face ", end='')
-                print(4)
-                print("x = ", end='')
-                print(crd_x[3])
-                print("y = ", end='')
-                print(crd_y[3])
-            elif(int(tmp2[0])%10 == 4):
-                crd_x[4] = faceInfo[4]['crd_x']
-                crd_y[4] = faceInfo[4]['crd_y']
-                print("Face ", end='')
-                print(5)
-                print("x = ", end='')
-                print(crd_x[4])
-                print("y = ", end='')
-                print(crd_y[4])
-            elif(int(tmp2[0])%10 == 5):
-                crd_x[5] = faceInfo[5]['crd_x']
-                crd_y[5] = faceInfo[5]['crd_y']
-                print("Face ", end='')
-                print(6)
-                print("x = ", end='')
-                print(crd_x[4])
-                print("y = ", end='')
-                print(crd_y[4])
-            elif(int(tmp2[0])%10 == 6):
-                crd_x[6] = faceInfo[6]['crd_x']
-                crd_y[6] = faceInfo[6]['crd_y']
-                print("Face ", end='')
-                print(7)
-                print("x = ", end='')
-                print(crd_x[4])
-                print("y = ", end='')
-                print(crd_y[4])
-            elif(int(tmp2[0])%10 == 7):
-                crd_x[7] = faceInfo[7]['crd_x']
-                crd_y[7] = faceInfo[7]['crd_y']
-                print("Face ", end='')
-                print(8)
-                print("x = ", end='')
-                print(crd_x[4])
-                print("y = ", end='')
-                print(crd_y[4])
-            elif(int(tmp2[0])%10 == 8):
-                crd_x[8] = faceInfo[8]['crd_x']
-                crd_y[8] = faceInfo[8]['crd_y']
-                print("Face ", end='')
-                print(9)
-                print("x = ", end='')
-                print(crd_x[4])
-                print("y = ", end='')
-                print(crd_y[4])
-            elif(int(tmp2[0])%10 == 9):
-                crd_x[9] = faceInfo[9]['crd_x']
-                crd_y[9] = faceInfo[9]['crd_y']
-                print("Face ", end='')
-                print(10)
-                print("x = ", end='')
-                print(crd_x[4])
-                print("y = ", end='')
-                print(crd_y[4])
+            while(True):
+                if(int(tmp2[0])%10 == 0):
+                    crd_x[0] = faceInfo[0]['crd_x']
+                    crd_y[0] = faceInfo[0]['crd_y']
+                    print("Face ", end='')
+                    print(1)
+                    print("x = ", end='')
+                    print(crd_x[0])
+                    print("y = ", end='')
+                    print(crd_y[0])
+                elif(int(tmp2[0])%10 == 1):
+                    crd_x[1] = faceInfo[1]['crd_x']
+                    crd_y[1] = faceInfo[1]['crd_y']
+                    print("Face ", end='')
+                    print(2)
+                    print("x = ", end='')
+                    print(crd_x[1])
+                    print("y = ", end='')
+                    print(crd_y[1])
+                elif(int(tmp2[0])%10 == 2):
+                    crd_x[2] = faceInfo[2]['crd_x']
+                    crd_y[2] = faceInfo[2]['crd_y']
+                    print("Face ", end='')
+                    print(3)
+                    print("x = ", end='')
+                    print(crd_x[2])
+                    print("y = ", end='')
+                    print(crd_y[2])
+                elif(int(tmp2[0])%10 == 3):
+                    crd_x[3] = faceInfo[3]['crd_x']
+                    crd_y[3] = faceInfo[3]['crd_y']
+                    print("Face ", end='')
+                    print(4)
+                    print("x = ", end='')
+                    print(crd_x[3])
+                    print("y = ", end='')
+                    print(crd_y[3])
+                elif(int(tmp2[0])%10 == 4):
+                    crd_x[4] = faceInfo[4]['crd_x']
+                    crd_y[4] = faceInfo[4]['crd_y']
+                    print("Face ", end='')
+                    print(5)
+                    print("x = ", end='')
+                    print(crd_x[4])
+                    print("y = ", end='')
+                    print(crd_y[4])
+                elif(int(tmp2[0])%10 == 5):
+                    crd_x[5] = faceInfo[5]['crd_x']
+                    crd_y[5] = faceInfo[5]['crd_y']
+                    print("Face ", end='')
+                    print(6)
+                    print("x = ", end='')
+                    print(crd_x[4])
+                    print("y = ", end='')
+                    print(crd_y[4])
+                elif(int(tmp2[0])%10 == 6):
+                    crd_x[6] = faceInfo[6]['crd_x']
+                    crd_y[6] = faceInfo[6]['crd_y']
+                    print("Face ", end='')
+                    print(7)
+                    print("x = ", end='')
+                    print(crd_x[4])
+                    print("y = ", end='')
+                    print(crd_y[4])
+                elif(int(tmp2[0])%10 == 7):
+                    crd_x[7] = faceInfo[7]['crd_x']
+                    crd_y[7] = faceInfo[7]['crd_y']
+                    print("Face ", end='')
+                    print(8)
+                    print("x = ", end='')
+                    print(crd_x[4])
+                    print("y = ", end='')
+                    print(crd_y[4])
+                elif(int(tmp2[0])%10 == 8):
+                    crd_x[8] = faceInfo[8]['crd_x']
+                    crd_y[8] = faceInfo[8]['crd_y']
+                    print("Face ", end='')
+                    print(9)
+                    print("x = ", end='')
+                    print(crd_x[4])
+                    print("y = ", end='')
+                    print(crd_y[4])
+                elif(int(tmp2[0])%10 == 9):
+                    crd_x[9] = faceInfo[9]['crd_x']
+                    crd_y[9] = faceInfo[9]['crd_y']
+                    print("Face ", end='')
+                    print(10)
+                    print("x = ", end='')
+                    print(crd_x[4])
+                    print("y = ", end='')
+                    print(crd_y[4])
+                if(tmp2[1] != '5'):
+                    break
 
 # Set defined functions to Thread
 def getFaceInfo_thread():
