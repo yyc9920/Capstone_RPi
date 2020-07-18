@@ -9,7 +9,7 @@ GPIO.setmode(GPIO.BOARD)
 
 # Set pin 22 as an output, and set servo1 as pin 22 as PWM
 GPIO.setup(22,GPIO.OUT)
-servo1 = GPIO.PWM(22,50) # Note 22 is pin, 50 = 50Hz pulse
+servo1 = GPIO.PWM(22,100) # Note 22 is pin, 100 = 100Hz pulse
 
 servo1.start(0)
 time.sleep(1)
@@ -23,7 +23,7 @@ cnt = 0
 fin_x = 0
 fin_y = 0
 tmp = [0, 0]
-duty = 2
+duty = 14
 
 exception_flag = 0
 
@@ -79,7 +79,7 @@ def getCoord():
             print("y = ", end='')
             print(crd_y[cnt])
 
-        if(tmp[1] == '2'):
+        elif(tmp[1] == '2'):
             crd_x[4] = 0
             crd_y[4] = 0
             crd_x[3] = 0
@@ -109,7 +109,7 @@ def getCoord():
             if(cnt == 2):
                 cnt = 0
 
-        if(tmp[1] == '3'):
+        elif(tmp[1] == '3'):
             crd_x[4] = 0
             crd_y[4] = 0
             crd_x[3] = 0
@@ -146,7 +146,7 @@ def getCoord():
             if(cnt == 3):
                 cnt = 0
 
-        if(tmp[1] == '4'):
+        elif(tmp[1] == '4'):
             crd_x[4] = 0
             crd_y[4] = 0
             if(cnt == 0):
@@ -190,7 +190,7 @@ def getCoord():
             if(cnt == 4):
                 cnt = 0
 
-        if(tmp[1] == '5'):
+        elif(tmp[1] == '5'):
             if(cnt == 0):
                 crd_x[0] = tmp_x
                 crd_y[0] = tmp_y
@@ -236,6 +236,7 @@ def getCoord():
                 print(crd_x[cnt])
                 print("y = ", end='')
                 print(crd_y[cnt])
+
             cnt += 1
             if(cnt == 5):
                 cnt = 0
@@ -253,25 +254,30 @@ def runServo():
         global exception_flag
         global duty
 
+        manx_rspeed = (fin_x - 600)/600
+        manx_lspeed = (fin_x - 400)/600
+
         if(exception_flag == 1):
             print("test")
             exception_flag = 0
-            duty = 7
-            servo1.ChangeDutyCycle(duty)
+            servo1.ChangeDutyCycle(14)
             time.sleep(0.5)
             break
 
         # Run Servo Motor to Right
-        if(fin_x > 1000):
+        if(fin_x > 600):
             servo1.ChangeDutyCycle(duty)
-            time.sleep(0.15)
-            duty = duty + 0.2
-
-        # Run Servo Motor to Left
-        elif(fin_x < 500):
+            time.sleep(0.1)
+            duty = 14 + manx_rspeed
+            # Run Servo Motor to Left
+        elif(fin_x < 400):
             servo1.ChangeDutyCycle(duty)
-            time.sleep(0.15)
-            duty = duty - 0.2
+            time.sleep(0.1)
+            duty = 14 + manx_lspeed
+        else:
+            duty = 14
+            servo1.ChangeDutyCycle(duty)
+            time.sleep(0.1)
 
 # Set getCoord to Thread
 def getCoord_thread():
