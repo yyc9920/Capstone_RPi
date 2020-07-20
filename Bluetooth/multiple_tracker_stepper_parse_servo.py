@@ -13,8 +13,8 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(22,GPIO.OUT)
 # Set pin 11 as an output, and set servo_y as pin 11 as PWM
 GPIO.setup(11,GPIO.OUT)
-servo_x = GPIO.PWM(22,100) # Note 22 is pin, 100 = 100Hz pulse
-servo_y = GPIO.PWM(11,100) # Note 22 is pin, 100 = 100Hz pulse
+servo_x = GPIO.PWM(22,50) # Note 22 is pin, 100 = 100Hz pulse
+servo_y = GPIO.PWM(11,50) # Note 22 is pin, 100 = 100Hz pulse
 
 servo_x.start(0)
 servo_y.start(0)
@@ -35,7 +35,8 @@ exception_flag = 0
 faceId = 0
 coord = 0
 faceNum = 0
-duty = 14
+duty_x = 7
+duty_y = 7
 
 def readSerialLine():
     while(1):
@@ -134,7 +135,8 @@ def runServo_x():
         global fin_x
         #global fin_y
         global exception_flag
-        global duty
+        global duty_x
+        global duty_y
 
         manx_rspeed = (fin_x - 600)/600
         manx_lspeed = (fin_x - 400)/600
@@ -144,24 +146,26 @@ def runServo_x():
             exception_flag = 0
             fin_x = 500
             fin_y = 1000
-            servo_x.ChangeDutyCycle(14)
+            duty_x = 7
+            duty_y = 7
+            servo_x.ChangeDutyCycle(7)
             time.sleep(0.5)
             break
 
         # Run Servo Motor to Right
         if(fin_x > 600):
-            servo_x.ChangeDutyCycle(duty)
-            time.sleep(0.1)
-            duty = 14 + manx_rspeed
+            servo_x.ChangeDutyCycle(duty_x)
+            time.sleep(0.2)
+            duty_x = 7 + manx_rspeed
             # Run Servo Motor to Left
         elif(fin_x < 400):
-            servo_x.ChangeDutyCycle(duty)
-            time.sleep(0.1)
-            duty = 14 + manx_lspeed
+            servo_x.ChangeDutyCycle(duty_x)
+            time.sleep(0.2)
+            duty_x = 7 + manx_lspeed
         else:
-            duty = 14
-            servo_x.ChangeDutyCycle(duty)
-            time.sleep(0.1)
+            duty_x = 7
+            servo_x.ChangeDutyCycle(duty_x)
+            time.sleep(0.2)
 
 def runServo_y():
     while True:
@@ -169,32 +173,32 @@ def runServo_y():
         #global fin_x
         global fin_y
         global exception_flag
-        global duty
+        global duty_y
 
-        manx_rspeed = (fin_y - 1100)/1200
-        manx_lspeed = (fin_y - 900)/1200
+        manx_rspeed = (fin_y - 1100)/600
+        manx_lspeed = (fin_y - 900)/600
 
         if(exception_flag == 1):
             print("test")
             exception_flag = 0
-            servo_y.ChangeDutyCycle(14)
+            servo_y.ChangeDutyCycle(7)
             time.sleep(0.5)
             break
 
         # Run Servo Motor to Right
         if(fin_y > 1100):
-            servo_y.ChangeDutyCycle(duty)
-            time.sleep(0.1)
-            duty = 14 + manx_rspeed
+            servo_y.ChangeDutyCycle(duty_y)
+            time.sleep(0.2)
+            duty_y = 7 + manx_rspeed
             # Run Servo Motor to Left
         elif(fin_y < 900):
-            servo_y.ChangeDutyCycle(duty)
-            time.sleep(0.1)
-            duty = 14 + manx_lspeed
+            servo_y.ChangeDutyCycle(duty_y)
+            time.sleep(0.2)
+            duty_y = 7 + manx_lspeed
         else:
-            duty = 14
-            servo_y.ChangeDutyCycle(duty)
-            time.sleep(0.1)
+            duty_y = 7
+            servo_y.ChangeDutyCycle(duty_y)
+            time.sleep(0.2)
 
 def readSerialLine_thread():
     thread = threading.Thread(target = readSerialLine)
