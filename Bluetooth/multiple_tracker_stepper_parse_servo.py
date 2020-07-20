@@ -35,6 +35,7 @@ exception_flag = 0
 faceId = 0
 coord = 0
 faceNum = 0
+duty = 14
 
 def readSerialLine():
     while(1):
