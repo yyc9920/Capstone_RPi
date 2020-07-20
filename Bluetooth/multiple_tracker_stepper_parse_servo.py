@@ -5,25 +5,20 @@ import re
 import RPi.GPIO as GPIO
 from pathlib import Path
 
+# Set GPIO numbering mode
 GPIO.setmode(GPIO.BOARD)
-# Set Stepper motor pins to 7, 11, 13, 15 (Depending on Board Number)
-ControlPin = [7, 11, 13, 15]
-# Set Stepper motor pins to 31, 33, 35, 37 (Depending on Board Number)
-ControlPin2 = [31, 33, 35, 37]
 
-for pin in ControlPin:
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin,0)
-for pin in ControlPin2:
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin,0)
-# Set pins End.
+# You can connect servos to I/O pins including 7, 11, 12, 13, 15, 16, 18 & 22
+# Set pin 22 as an output, and set servo_x as pin 22 as PWM
+GPIO.setup(22,GPIO.OUT)
+# Set pin 11 as an output, and set servo_y as pin 11 as PWM
+GPIO.setup(11,GPIO.OUT)
+servo_x = GPIO.PWM(22,100) # Note 22 is pin, 100 = 100Hz pulse
+servo_y = GPIO.PWM(11,100) # Note 22 is pin, 100 = 100Hz pulse
 
-# 4 Sequences
-seq = [ [1, 0, 0, 0],
-		[0, 1, 0, 0],
-		[0, 0, 1, 0],
-		[0, 0, 0, 1] ]
+servo_x.start(0)
+servo_y.start(0)
+time.sleep(1)
 
 b_device = Path("/dev/rfcomm0")
 
@@ -127,81 +122,94 @@ def readSerialLine():
         else:
             fin_x = 500
             fin_y = 1000
-        time.sleep(0.01)
         print("fin_x = ", end='')
         print(fin_x, end='')
         print(", fin_y = ", end='')
         print(fin_y)
 
-def runStepperX():
+def runServo_x():
     while True:
+        global servo_x
         global fin_x
-        global fin_y
-        global ControlPin2
-        global seq
+        #global fin_y
         global exception_flag
+        global duty
 
-        manX_rSpeed = (fin_x - 600)/50000
-        manX_lSpeed = (400 - fin_x)/50000
+        manx_rspeed = (fin_x - 600)/600
+        manx_lspeed = (fin_x - 400)/600
 
         if(exception_flag == 1):
+            print("test")
             exception_flag = 0
             fin_x = 500
             fin_y = 1000
+            servo_x.ChangeDutyCycle(14)
             time.sleep(0.5)
             break
 
-        # Run Stepper Motor to Right
+        # Run Servo Motor to Right
         if(fin_x > 600):
-            for halfstep in range(4):
-                for pin in range(4):
-                    GPIO.output(ControlPin2[pin], seq[halfstep][pin])
-                time.sleep(0.0105 - manX_rSpeed)
-        # Run Stepper Motor to Left
+            servo_x.ChangeDutyCycle(duty)
+            time.sleep(0.1)
+            duty = 14 + manx_rspeed
+            # Run Servo Motor to Left
         elif(fin_x < 400):
-            for halfstep in range(4):
-                for pin in range(4):
-                    GPIO.output(ControlPin2[3-pin], seq[halfstep][pin])
-                time.sleep(0.0105 - manX_lSpeed)
+            servo_x.ChangeDutyCycle(duty)
+            time.sleep(0.1)
+            duty = 14 + manx_lspeed
+        else:
+            duty = 14
+            servo_x.ChangeDutyCycle(duty)
+            time.sleep(0.1)
 
-def runStepperY():
+def runServo_y():
     while True:
+        global servo_y
+        #global fin_x
         global fin_y
-        global ControlPin
-        global seq
         global exception_flag
+        global duty
 
-        manY_uSpeed = (fin_y - 1100)/100000
-        manY_dSpeed = (900 - fin_y)/100000
+        manx_rspeed = (fin_y - 1100)/1200
+        manx_lspeed = (fin_y - 900)/1200
 
-        # Run Stepper Motor Upward
+        if(exception_flag == 1):
+            print("test")
+            exception_flag = 0
+            servo_y.ChangeDutyCycle(14)
+            time.sleep(0.5)
+            break
+
+        # Run Servo Motor to Right
         if(fin_y > 1100):
-            for halfstep in range(4):
-                for pin in range(4):
-                    GPIO.output(ControlPin[pin], seq[halfstep][pin])
-                time.sleep(0.0115 - manY_uSpeed)
-        # Run Stepper Motor to Downward
+            servo_y.ChangeDutyCycle(duty)
+            time.sleep(0.1)
+            duty = 14 + manx_rspeed
+            # Run Servo Motor to Left
         elif(fin_y < 900):
-            for halfstep in range(4):
-                for pin in range(4):
-                    GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-                time.sleep(0.0100 - manY_dSpeed)
+            servo_y.ChangeDutyCycle(duty)
+            time.sleep(0.1)
+            duty = 14 + manx_lspeed
+        else:
+            duty = 14
+            servo_y.ChangeDutyCycle(duty)
+            time.sleep(0.1)
 
 def readSerialLine_thread():
     thread = threading.Thread(target = readSerialLine)
     thread.daemon = True
     thread.start()
 
-def runStepperY_thread():
-    thread = threading.Thread(target = runStepperY)
+def runServo_y_thread():
+    thread = threading.Thread(target = runServo_y)
     thread.daemon = True
     thread.start()
 
 while(1):
     if(b_device.exists() == True):
         readSerialLine_thread()
-        runStepperY_thread()
-        runStepperX()
+        runServo_y_thread()
+        runServo_x()
     else:
         print("Bluetooth not connected")
         time.sleep(5)
