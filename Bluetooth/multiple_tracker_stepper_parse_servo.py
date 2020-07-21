@@ -35,8 +35,8 @@ exception_flag = 0
 faceId = 0
 coord = 0
 faceNum = 0
-duty_x = 7.05
-duty_y = 7.05
+duty_x = 7
+duty_y = 7.5
 
 def readSerialLine():
     while(1):
@@ -56,7 +56,7 @@ def readSerialLine():
                 # faceNum[0] => crd infos, faceNum[1] => number of faces
             except serial.serialutil.SerialException:
                 fin_x = 500
-                fin_y = 1000
+                fin_y = 500
                 print("Bluetooth connection lost")
                 exception_flag = 1
                 time.sleep(0.5)
@@ -107,12 +107,13 @@ def readSerialLine():
             fin_x = (float(crd1[0]) + float(crd2[0]) + float(crd3[0]) + float(crd4[0]))/4
             fin_y = (float(crd1[1]) + float(crd2[1]) + float(crd3[1]) + float(crd4[1]))/4
         elif(fn == 5):
-            fi5 = re.split('!|"|#|$', faceNum[0][0:-1])
+            fi5 = re.split('!|"|#', faceNum[0][0:-1])
+            fi_tmp = fi5[3].split('$')
             crd1 = fi5[0].split('/')
             crd2 = fi5[1].split('/')
             crd3 = fi5[2].split('/')
-            crd4 = fi5[3].split('/')
-            crd5 = fi5[4].split('/')
+            crd4 = fi_tmp[0].split('/')
+            crd5 = fi_tmp[1].split('/')
             print("faces = 5")
             print(crd1)
             print(crd2)
@@ -123,7 +124,7 @@ def readSerialLine():
             fin_y = (float(crd1[1]) + float(crd2[1]) + float(crd3[1]) + float(crd4[1]) + float(crd5[1]))/5
         else:
             fin_x = 500
-            fin_y = 1000
+            fin_y = 500
         print("fin_x = ", end='')
         print(fin_x, end='')
         print(", fin_y = ", end='')
@@ -145,9 +146,9 @@ def runServo_x():
             print("test")
             exception_flag = 0
             fin_x = 500
-            fin_y = 1000
-            duty_x = 7.05
-            duty_y = 7.05
+            fin_y = 500
+            duty_x = 7
+            duty_y = 7.5
             servo_x.ChangeDutyCycle(7)
             time.sleep(0.5)
             break
@@ -156,15 +157,15 @@ def runServo_x():
         if(fin_x > 600):
             servo_x.ChangeDutyCycle(duty_x)
             time.sleep(0.2)
-            duty_x = 7.05 + manx_rspeed
+            duty_x = 7 + manx_rspeed
         # Run Servo Motor to Left
         elif(fin_x < 400):
             servo_x.ChangeDutyCycle(duty_x)
             time.sleep(0.2)
-            duty_x = 7.05 + manx_lspeed
+            duty_x = 7 + manx_lspeed
         else:
-            duty_x = 7.05
-            servo_x.ChangeDutyCycle(7.05)
+            duty_x = 7
+            servo_x.ChangeDutyCycle(7)
             time.sleep(0.2)
 
 def runServo_y():
@@ -178,10 +179,10 @@ def runServo_y():
         manx_rspeed = (fin_y - 600)/1500
         manx_lspeed = (fin_y - 400)/1500
 
-        if(duty_y > 8.5):
-            duty_y = 8.5
-        if(duty_y < 5):
-            duty_y = 5
+        if(duty_y > 9):
+            duty_y = 9
+        if(duty_y < 4.5):
+            duty_y = 4.5
 
         if(exception_flag == 1):
             print("test")
