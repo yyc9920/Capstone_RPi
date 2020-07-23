@@ -169,8 +169,8 @@ def runServo_y():
 
         if(duty_y > 2500):
             duty_y = 2500
-        if(duty_y < 1500):
-            duty_y = 1500
+        if(duty_y < 1200):
+            duty_y = 1200
 
         if(exception_flag == 1):
             print("test")
@@ -180,17 +180,17 @@ def runServo_y():
 
         # Run Servo Motor to Right
         if(fin_y > 600):
+            duty_y = duty_y - manx_rspeed
             servo_y.set_servo_pulsewidth(17, duty_y)
             time.sleep(0.1)
-            duty_y = duty_y - manx_rspeed
         # Run Servo Motor to Left
         elif(fin_y < 400):
-            servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.1)
             duty_y = duty_y - manx_lspeed
-        else:
             servo_y.set_servo_pulsewidth(17, duty_y)
             time.sleep(0.1)
+        else:
+            time.sleep(0.1)
+# See if it works.
 
 def readSerialLine_thread():
     thread = threading.Thread(target = readSerialLine)
