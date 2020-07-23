@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo pigpiod
 sudo bluetoothctl discoverable on
 sudo rfcomm watch hci0 dp12cks34 &
 # Waiting for bluetooth device to be connected in background

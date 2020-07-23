@@ -164,8 +164,8 @@ def runServo_y():
         global exception_flag
         global duty_y
 
-        manx_rspeed = (fin_y - 600)/1500
-        manx_lspeed = (fin_y - 400)/1500
+        manx_rspeed = (fin_y - 600)/10
+        manx_lspeed = (fin_y - 400)/10
 
         if(duty_y > 2500):
             duty_y = 2500
@@ -175,23 +175,22 @@ def runServo_y():
         if(exception_flag == 1):
             print("test")
             exception_flag = 0
-            duty_y = 2000
-            servo_y.set_servo_pulsewidth(17, 2000)
             time.sleep(0.5)
             break
 
         # Run Servo Motor to Right
         if(fin_y > 600):
             servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.05)
+            time.sleep(0.1)
             duty_y = duty_y - manx_rspeed
         # Run Servo Motor to Left
         elif(fin_y < 400):
             servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.05)
+            time.sleep(0.1)
             duty_y = duty_y - manx_lspeed
         else:
-            time.sleep(0.05)
+            servo_y.set_servo_pulsewidth(17, duty_y)
+            time.sleep(0.1)
 
 def readSerialLine_thread():
     thread = threading.Thread(target = readSerialLine)
