@@ -58,7 +58,7 @@ def readSerialLine():
         if(fn == 1):
             fi1 = faceNum[0][0:-1]
             crd1 = fi1.split('/')
-            print("faces = 1")
+            print('\033[36m' + "faces = 1" + '\033[0m')
             print(crd1)
             fin_x = float(crd1[0])
             fin_y = float(crd1[1])
@@ -66,7 +66,7 @@ def readSerialLine():
             fi2 = re.split('!', faceNum[0][0:-1])
             crd1 = fi2[0].split('/')
             crd2 = fi2[1].split('/')
-            print("faces = 2")
+            print('\033[36m' + "faces = 2" + '\033[0m')
             print(crd1)
             print(crd2)
             fin_x = (float(crd1[0]) + float(crd2[0]))/2
@@ -76,7 +76,7 @@ def readSerialLine():
             crd1 = fi3[0].split('/')
             crd2 = fi3[1].split('/')
             crd3 = fi3[2].split('/')
-            print("faces = 3")
+            print('\033[36m' + "faces = 3" + '\033[0m')
             print(crd1)
             print(crd2)
             print(crd3)
@@ -88,7 +88,7 @@ def readSerialLine():
             crd2 = fi4[1].split('/')
             crd3 = fi4[2].split('/')
             crd4 = fi4[3].split('/')
-            print("faces = 4")
+            print('\033[36m' + "faces = 4" + '\033[0m')
             print(crd1)
             print(crd2)
             print(crd3)
@@ -103,7 +103,7 @@ def readSerialLine():
             crd3 = fi5[2].split('/')
             crd4 = fi_tmp[0].split('/')
             crd5 = fi_tmp[1].split('/')
-            print("faces = 5")
+            print('\033[36m' + "faces = 5" + '\033[0m')
             print(crd1)
             print(crd2)
             print(crd3)
@@ -114,10 +114,12 @@ def readSerialLine():
         else:
             fin_x = 500
             fin_y = 500
-        print("fin_x = ", end='')
+        print('\033[92m' + 'fin_x = ', end='')
         print(fin_x, end='')
-        print(", fin_y = ", end='')
-        print(fin_y)
+        print('\033[0m', end='')
+        print('\033[94m' + ', fin_y = ', end='')
+        print(fin_y, end='')
+        print('\033[0m')
 
 def runServo_x():
     while True:
