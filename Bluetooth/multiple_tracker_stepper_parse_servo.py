@@ -2,7 +2,6 @@ import serial
 import threading
 import time
 import re
-import RPi.GPIO as GPIO
 import pigpio
 from pathlib import Path
 
@@ -114,10 +113,9 @@ def readSerialLine():
         else:
             fin_x = 500
             fin_y = 500
-        print('\033[92m' + 'fin_x = ', end='')
+        print('\033[91m' + 'fin_x = ', end='')
         print(fin_x, end='')
-        print('\033[0m', end='')
-        print('\033[94m' + ', fin_y = ', end='')
+        print(', fin_y = ', end='')
         print(fin_y, end='')
         print('\033[0m')
 
@@ -130,8 +128,8 @@ def runServo_x():
         global duty_x
         global duty_y
 
-        manx_rspeed = (fin_x - 600)/20
-        manx_lspeed = (fin_x - 400)/20
+        manx_rspeed = (fin_x - 550)/10
+        manx_lspeed = (fin_x - 450)/10
 
         if(exception_flag == 1):
             print("test")
@@ -145,15 +143,15 @@ def runServo_x():
             break
 
         # Run Servo Motor to Right
-        if(fin_x > 600):
+        if(fin_x > 550):
             servo_x.set_servo_pulsewidth(25, duty_x)
-            time.sleep(0.05)
             duty_x = 1475 + manx_rspeed
+            time.sleep(0.03)
         # Run Servo Motor to Left
-        elif(fin_x < 400):
+        elif(fin_x < 450):
             servo_x.set_servo_pulsewidth(25, duty_x)
-            time.sleep(0.05)
             duty_x = 1475 + manx_lspeed
+            time.sleep(0.03)
         else:
             servo_x.set_servo_pulsewidth(25, 1475)
             time.sleep(0.05)
@@ -166,8 +164,8 @@ def runServo_y():
         global exception_flag
         global duty_y
 
-        manx_rspeed = (fin_y - 600)/10
-        manx_lspeed = (fin_y - 400)/10
+        manx_rspeed = (fin_y - 550)/40
+        manx_lspeed = (fin_y - 450)/40
 
         if(duty_y > 2500):
             duty_y = 2500
@@ -181,17 +179,17 @@ def runServo_y():
             break
 
         # Run Servo Motor to Right
-        if(fin_y > 600):
-            duty_y = duty_y - manx_rspeed
+        if(fin_y > 550):
+            duty_y = duty_y - 10
             servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.1)
+            time.sleep(0.5)
         # Run Servo Motor to Left
-        elif(fin_y < 400):
-            duty_y = duty_y - manx_lspeed
+        elif(fin_y < 450):
+            duty_y = duty_y + 10
             servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.1)
+            time.sleep(0.5)
         else:
-            time.sleep(0.1)
+            time.sleep(0.5)
 # See if it works.
 
 def readSerialLine_thread():
