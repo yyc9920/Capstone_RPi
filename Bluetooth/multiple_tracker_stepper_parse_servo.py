@@ -24,7 +24,9 @@ faceId = 0
 coord = 0
 faceNum = 0
 duty_x = 1475 # halt duty cycle
-duty_y = 2000 # Perpendicular duty cycle
+duty_y = 2100 # Perpendicular duty cycle
+servo_y.set_servo_pulsewidth(17, 2100)
+time.sleep(2)
 
 def readSerialLine():
     while(1):
@@ -44,12 +46,14 @@ def readSerialLine():
                 # faceNum[0] => crd infos, faceNum[1] => number of faces
             except serial.serialutil.SerialException:
                 fin_x = 500
-                fin_y = 500
+                fin_y = 350
                 print("Bluetooth connection lost")
                 exception_flag = 1
                 time.sleep(0.5)
                 break
         else:
+            fin_x = 500
+            fin_y = 500
             continue
 
         fn = int(faceNum[1])
@@ -112,7 +116,7 @@ def readSerialLine():
             fin_y = (float(crd1[1]) + float(crd2[1]) + float(crd3[1]) + float(crd4[1]) + float(crd5[1]))/5
         else:
             fin_x = 500
-            fin_y = 500
+            fin_y = 350
         print('\033[91m' + 'fin_x = ', end='')
         print(fin_x, end='')
         print(', fin_y = ', end='')
@@ -134,10 +138,7 @@ def runServo_x():
         if(exception_flag == 1):
             print("test")
             exception_flag = 0
-            fin_x = 500
-            fin_y = 500
             duty_x = 1475
-            duty_y = 2000
             servo_x.set_servo_pulsewidth(25, 1475)
             time.sleep(0.5)
             break
@@ -154,7 +155,6 @@ def runServo_x():
             time.sleep(0.03)
         else:
             servo_x.set_servo_pulsewidth(25, 1475)
-            time.sleep(0.05)
 
 def runServo_y():
     while True:
@@ -164,13 +164,10 @@ def runServo_y():
         global exception_flag
         global duty_y
 
-        manx_rspeed = (fin_y - 550)/40
-        manx_lspeed = (fin_y - 450)/40
-
-        if(duty_y > 2500):
-            duty_y = 2500
-        if(duty_y < 1200):
-            duty_y = 1200
+        if(duty_y > 2800):
+            duty_y = 2800
+        if(duty_y < 2000):
+            duty_y = 2000
 
         if(exception_flag == 1):
             print("test")
@@ -179,18 +176,17 @@ def runServo_y():
             break
 
         # Run Servo Motor to Right
-        if(fin_y > 550):
-            duty_y = duty_y - 10
+        if(fin_y > 400):
+            duty_y = duty_y - 2
             servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.5)
+            time.sleep(0.05)
         # Run Servo Motor to Left
-        elif(fin_y < 450):
-            duty_y = duty_y + 10
+        elif(fin_y < 300):
+            duty_y = duty_y + 2
             servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.5)
+            time.sleep(0.05)
         else:
-            time.sleep(0.5)
-# See if it works.
+            time.sleep(0.1)
 
 def readSerialLine_thread():
     thread = threading.Thread(target = readSerialLine)
