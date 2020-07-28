@@ -164,8 +164,8 @@ def runServo_y():
         global exception_flag
         global duty_y
 
-        if(duty_y > 2800):
-            duty_y = 2800
+        if(duty_y > 2495):
+            duty_y = 2495
         if(duty_y < 2000):
             duty_y = 2000
 
