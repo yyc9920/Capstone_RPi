@@ -10,19 +10,13 @@ servo_y = pigpio.pi() # gpio 17
 
 b_device = Path("/dev/rfcomm0")
 
-crd_x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-crd_y = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-faceInfo = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-cnt = 0
 fin_x = 0
 fin_y = 0
 crd = 0
 tmp = 0
-tmp2 = [0, 0]
 exception_flag = 0
-faceId = 0
-coord = 0
-faceNum = 0
+bSerData = 0
+bdataInfo = 0
 duty_x = 1475 # halt duty cycle
 duty_y = 2100 # Perpendicular duty cycle
 servo_y.set_servo_pulsewidth(17, 2100)
@@ -38,17 +32,17 @@ def readSerialLine():
         global duty_y
         global tmp
         global crd
-        global coord
-        global faceNum
+        global bSerData
+        global bdataInfo
         if(b_device.exists() == True):
             # Read Coordinates String via Bluetooth Communication
             try:
                 ser = serial.Serial('/dev/rfcomm0')
-                coord = ser.readline()
-                coord = coord.decode('utf-8')
-                coord = coord[0:-2]
-                faceNum = coord.split(':')
-                # faceNum[0] => crd infos, faceNum[1] => number of faces
+                bSerData = ser.readline()
+                bSerData = bSerData.decode('utf-8')
+                bSerData = bSerData[0:-2]
+                bdataInfo = bSerData.split(':')
+                # bdataInfo[0] => composition mode + crd info, bdataInfo[1] => distance mode
             except serial.serialutil.SerialException:
                 fin_x = 500
                 fin_y = 350
@@ -63,7 +57,7 @@ def readSerialLine():
             fin_y = 350
             continue
 
-        tmp = faceNum[0].split('!')
+        tmp = bdataInfo[0].split('!')
         crd = tmp[1].split('/')
         # crd#[0] => crd_x, crd#[1] => crd_y
         fin_x = float(crd[0])
@@ -130,9 +124,9 @@ def runServo_x():
         global duty_x
         global duty_y
         global tmp
-        global faceNum
+        global bdataInfo
 
-        tmp = faceNum[0].split('!')
+        tmp = bdataInfo[0].split('!')
 
         if(exception_flag == 1):
             print("test")
@@ -207,18 +201,45 @@ def runServo_y():
             time.sleep(0.5)
             break
 
-        # Run Servo Motor to Right
-        if(fin_y > 400):
-            duty_y = duty_y - 2
-            servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.05)
-        # Run Servo Motor to Left
-        elif(fin_y < 300):
-            duty_y = duty_y + 2
-            servo_y.set_servo_pulsewidth(17, duty_y)
-            time.sleep(0.05)
-        else:
-            time.sleep(0.1)
+        if(bdataInfo[1] == 'N'):
+            # Run Servo Motor to Right
+            if(fin_y > 400):
+                duty_y = duty_y - 2
+                servo_y.set_servo_pulsewidth(17, duty_y)
+                time.sleep(0.05)
+            # Run Servo Motor to Left
+            elif(fin_y < 300):
+                duty_y = duty_y + 2
+                servo_y.set_servo_pulsewidth(17, duty_y)
+                time.sleep(0.05)
+            else:
+                time.sleep(0.1)
+        if(bdataInfo[1] == 'M1'):
+            # Run Servo Motor to Right
+            if(fin_y > 530):
+                duty_y = duty_y - 2
+                servo_y.set_servo_pulsewidth(17, duty_y)
+                time.sleep(0.05)
+            # Run Servo Motor to Left
+            elif(fin_y < 450):
+                duty_y = duty_y + 2
+                servo_y.set_servo_pulsewidth(17, duty_y)
+                time.sleep(0.05)
+            else:
+                time.sleep(0.1)
+        if(bdataInfo[1] == 'M2'):
+            # Run Servo Motor to Right
+            if(fin_y > 530):
+                duty_y = duty_y - 2
+                servo_y.set_servo_pulsewidth(17, duty_y)
+                time.sleep(0.05)
+            # Run Servo Motor to Left
+            elif(fin_y < 450):
+                duty_y = duty_y + 2
+                servo_y.set_servo_pulsewidth(17, duty_y)
+                time.sleep(0.05)
+            else:
+                time.sleep(0.1)
 
 def readSerialLine_thread():
     thread = threading.Thread(target = readSerialLine)
