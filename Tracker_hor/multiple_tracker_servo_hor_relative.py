@@ -8,6 +8,7 @@ from pathlib import Path
 GPIO.setmode(GPIO.BOARD)
 
 # Set pin 22 as an output, and set servo1 as pin 22 as PWM
+# You can connect servos to I/O pins including 7, 11, 12, 13, 15, 16, 18 & 22
 GPIO.setup(22,GPIO.OUT)
 servo1 = GPIO.PWM(22,100) # Note 22 is pin, 100 = 100Hz pulse
 
