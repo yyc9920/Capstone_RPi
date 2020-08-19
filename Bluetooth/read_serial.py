@@ -10,7 +10,5 @@ cnt = 0
 
 while(1):
     coord = ser.readline()
-    coord = coord.decode('utf-8')
-    coord = coord[0:-2]
     print(coord);
     time.sleep(0.01)

@@ -17,7 +17,7 @@ tmp = 0
 exception_flag = 0
 bSerData = 0
 bdataInfo = [0, 'S']
-duty_x = 1475 # halt duty cycle
+duty_x = 1470 # halt duty cycle
 duty_y = 2100 # Perpendicular duty cycle
 servo_y.set_servo_pulsewidth(17, 2100)
 time.sleep(2)
@@ -46,9 +46,9 @@ def readSerialLine():
             except serial.serialutil.SerialException:
                 fin_x = 500
                 fin_y = 350
-                duty_x = 1475
-                servo_x.set_servo_pulsewidth(25, 1475)
-                print("Bluetooth connection lost")
+                duty_x = 1470
+                servo_x.set_servo_pulsewidth(25, 1470)
+                print('\033[31m' + "Bluetooth connection lost" + '\033[0m')
                 exception_flag = 1
                 time.sleep(0.5)
                 break
@@ -61,14 +61,14 @@ def readSerialLine():
         # crd#[0] => crd_x, crd#[1] => crd_y
         fin_x = float(crd[0])
         fin_y = float(crd[1])
-        print('\033[92m' + "Mode : ", end='')
-        print(tmp[0] + '\033[0m')
+        print('\033[33m' + "Composition Mode : ", end='')
+        print(tmp[0])
+        print("Distance Mode : ", end='')
+        print(bdataInfo[1] + '\033[0m')
         print('\033[96m' + "x : ", end='')
         print(crd[0])
         print("y : ", end='')
         print(crd[1] + '\033[0m')
-
-        duty_x = 1475 # halt duty cycle
 
         if(tmp[0] == 'N' or tmp[0] == 'C'):
             manx_rspeed = (fin_x - 550)/10
@@ -76,45 +76,45 @@ def readSerialLine():
             # Run Servo Motor to Right
             if(fin_x > 550):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_rspeed
+                duty_x = 1470 + manx_rspeed
                 time.sleep(0.03)
             # Run Servo Motor to Left
             elif(fin_x < 450):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_lspeed
+                duty_x = 1470 + manx_lspeed
                 time.sleep(0.03)
             else:
-                servo_x.set_servo_pulsewidth(25, 1475)
+                servo_x.set_servo_pulsewidth(25, 1470)
         elif(tmp[0] == 'L'):
             manx_rspeed = (fin_x - 384)/10
             manx_lspeed = (fin_x - 283)/5
             # Run Servo Motor to Right
             if(fin_x > 384):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_rspeed
+                duty_x = 1470 + manx_rspeed
                 time.sleep(0.03)
             # Run Servo Motor to Left
             elif(fin_x < 283):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_lspeed
+                duty_x = 1470 + manx_lspeed
                 time.sleep(0.03)
             else:
-                servo_x.set_servo_pulsewidth(25, 1475)
+                servo_x.set_servo_pulsewidth(25, 1470)
         elif(tmp[0] == 'R'):
             manx_rspeed = (fin_x - 717)/5
             manx_lspeed = (fin_x - 616)/10
             # Run Servo Motor to Right
             if(fin_x > 717):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_rspeed
+                duty_x = 1470 + manx_rspeed
                 time.sleep(0.03)
             # Run Servo Motor to Left
             elif(fin_x < 616):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_lspeed
+                duty_x = 1470 + manx_lspeed
                 time.sleep(0.03)
             else:
-                servo_x.set_servo_pulsewidth(25, 1475)
+                servo_x.set_servo_pulsewidth(25, 1470)
 
 def runServo_x():
     while True:
@@ -132,8 +132,8 @@ def runServo_x():
         if(exception_flag == 1):
             print("test")
             exception_flag = 0
-            duty_x = 1475
-            servo_x.set_servo_pulsewidth(25, 1475)
+            duty_x = 1470
+            servo_x.set_servo_pulsewidth(25, 1470)
             time.sleep(0.5)
             break
 
@@ -143,45 +143,45 @@ def runServo_x():
             # Run Servo Motor to Right
             if(fin_x > 550):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_rspeed
+                duty_x = 1470 + manx_rspeed
                 time.sleep(0.03)
             # Run Servo Motor to Left
             elif(fin_x < 450):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_lspeed
+                duty_x = 1470 + manx_lspeed
                 time.sleep(0.03)
             else:
-                servo_x.set_servo_pulsewidth(25, 1475)
+                servo_x.set_servo_pulsewidth(25, 1470)
         elif(tmp[0] == 'L'):
             manx_rspeed = (fin_x - 384)/10
             manx_lspeed = (fin_x - 283)/5
             # Run Servo Motor to Right
             if(fin_x > 384):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_rspeed
+                duty_x = 1470 + manx_rspeed
                 time.sleep(0.03)
             # Run Servo Motor to Left
             elif(fin_x < 283):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_lspeed
+                duty_x = 1470 + manx_lspeed
                 time.sleep(0.03)
             else:
-                servo_x.set_servo_pulsewidth(25, 1475)
+                servo_x.set_servo_pulsewidth(25, 1470)
         elif(tmp[0] == 'R'):
             manx_rspeed = (fin_x - 717)/5
             manx_lspeed = (fin_x - 616)/10
             # Run Servo Motor to Right
             if(fin_x > 717):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_rspeed
+                duty_x = 1470 + manx_rspeed
                 time.sleep(0.03)
             # Run Servo Motor to Left
             elif(fin_x < 616):
                 servo_x.set_servo_pulsewidth(25, duty_x)
-                duty_x = 1475 + manx_lspeed
+                duty_x = 1470 + manx_lspeed
                 time.sleep(0.03)
             else:
-                servo_x.set_servo_pulsewidth(25, 1475)
+                servo_x.set_servo_pulsewidth(25, 1470)
 
 def runServo_y():
     while True:
@@ -203,63 +203,63 @@ def runServo_y():
             break
 
         if(bdataInfo[1] == 'N'):
-            many_uspeed = (fin_y - 300)/10
-            many_dspeed = (fin_y - 200)/10
+            many_uspeed = (fin_y - 300)/20
+            many_dspeed = (fin_y - 200)/20
             # Run Servo Motor to Right
             if(fin_y > 300):
                 duty_y = duty_y - many_uspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 200):
-                duty_y = duty_y + many_dspeed
+                duty_y = duty_y - many_dspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             else:
                 time.sleep(0.1)
         elif(bdataInfo[1] == 'M1'):
-            many_uspeed = (fin_y - 400)/10
-            many_dspeed = (fin_y - 300)/10
+            many_uspeed = (fin_y - 400)/20
+            many_dspeed = (fin_y - 300)/20
             # Run Servo Motor to Right
             if(fin_y > 400):
                 duty_y = duty_y - many_uspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 300):
-                duty_y = duty_y + many_dspeed
+                duty_y = duty_y - many_dspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             else:
                 time.sleep(0.1)
         elif(bdataInfo[1] == 'M2'):
-            many_uspeed = (fin_y - 500)/10
-            many_dspeed = (fin_y - 400)/10
+            many_uspeed = (fin_y - 500)/20
+            many_dspeed = (fin_y - 400)/20
             # Run Servo Motor to Right
             if(fin_y > 500):
                 duty_y = duty_y - many_uspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 400):
-                duty_y = duty_y + many_dspeed
+                duty_y = duty_y - many_dspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             else:
                 time.sleep(0.1)
         elif(bdataInfo[1] == 'M3'):
-            many_uspeed = (fin_y - 580)/10
-            many_dspeed = (fin_y - 500)/10
+            many_uspeed = (fin_y - 580)/20
+            many_dspeed = (fin_y - 500)/20
             # Run Servo Motor to Right
             if(fin_y > 580):
                 duty_y = duty_y - many_uspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 500):
-                duty_y = duty_y + many_dspeed
+                duty_y = duty_y - many_dspeed
                 servo_y.set_servo_pulsewidth(17, duty_y)
-                time.sleep(0.05)
+                time.sleep(0.02)
             else:
                 time.sleep(0.1)
 
