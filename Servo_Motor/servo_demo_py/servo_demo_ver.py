@@ -10,14 +10,11 @@ pulse = 0
 while True:
     pi.set_servo_pulsewidth(17,   0) # PWM off
     sleep(1)
-    for i in range(500):
-        pulse = 910 - i
-        if(900 > pulse > 880):
-            pulse = 900
-            pi.set_servo_pulsewidth(17, 0) # PWM 3/4 on
-            sleep(0.03)
-        else:
-            pi.set_servo_pulsewidth(17, pulse) # PWM 3/4 on
-            sleep(1)
+    for i in range(1000):
+        pulse = 900 + i
+        pi.set_servo_pulsewidth(17, pulse) # PWM off
+        sleep(0.002)
+        if(pulse == 1400):
+            sleep(2)
     pi.set_servo_pulsewidth(17,   0) # PWM off
     sleep(1)
