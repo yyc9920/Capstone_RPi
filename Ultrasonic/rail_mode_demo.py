@@ -145,8 +145,8 @@ def move_stepper():
         #if(distance > 4.4):
             for halfstep in range(8):
                 for pin in range(4):
-                    GPIO.output(ControlPin[3 - pin], seq[halfstep][pin])
-                time.sleep(0.0015)
+                    GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
+                time.sleep(0.00095)
 
 def move_stepper_thread():
     thread = threading.Thread(target = move_stepper)
