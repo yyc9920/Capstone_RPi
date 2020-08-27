@@ -22,4 +22,4 @@ for i in range(512):
     for halfstep in range(8):
         for pin in range(4):
             GPIO.output(ControlPin[pin], seq[halfstep][pin])
-        time.sleep(0.0020)
+        time.sleep(0.0010)

@@ -155,66 +155,67 @@ def runStepper_x():
             pass
         else:
             if(tmp[0] == 'N' or tmp[0] == 'C'):
-                manx_rspeed = (fin_x - 550)/400000
-                manx_lspeed = (fin_x - 450)/400000
+                manx_rspeed = (fin_x - 550)/225000
+                manx_lspeed = (fin_x - 450)/225000
                 # Run Stepper Motor to Right
                 if(fin_x > 550):
                     for halfstep in range(8):
                         for pin in range(4):
-                            GPIO.output(ControlPin[pin], seq[halfstep][pin])
-                        time.sleep(0.0027-manx_rspeed)
+                            GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
+                        time.sleep(0.0033-manx_rspeed)
                 # Run Stepper Motor to Left
                 elif(fin_x < 450):
                     for halfstep in range(8):
                         for pin in range(4):
-                            GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-                        time.sleep(0.0027-manx_lspeed)
+                            GPIO.output(ControlPin[pin], seq[halfstep][pin])
+                        time.sleep(0.0032-manx_lspeed)
                 else:
                     pass
             elif(tmp[0] == 'L'):
-                manx_rspeed = (fin_x - 384)/550000
-                manx_lspeed = (fin_x - 283)/250000
+                manx_rspeed = (fin_x - 384)/308000
+                manx_lspeed = (fin_x - 283)/141500
                 # Run Stepper Motor to Right
                 if(fin_x > 384):
                     for halfstep in range(8):
                         for pin in range(4):
-                            GPIO.output(ControlPin[pin], seq[halfstep][pin])
-                        time.sleep(0.0027-manx_rspeed)
+                            GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
+                        time.sleep(0.0033-manx_rspeed)
                 # Run Stepper Motor to Left
                 elif(fin_x < 283):
                     for halfstep in range(8):
                         for pin in range(4):
-                            GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-                        time.sleep(0.0027-manx_lspeed)
+                            GPIO.output(ControlPin[pin], seq[halfstep][pin])
+                        time.sleep(0.0032-manx_lspeed)
                 else:
                     pass
             elif(tmp[0] == 'R'):
-                manx_rspeed = (fin_x - 717)/250000
-                manx_lspeed = (fin_x - 616)/550000
+                manx_rspeed = (fin_x - 717)/141500
+                manx_lspeed = (fin_x - 616)/308000
                 # Run Servo Motor to Right
                 if(fin_x > 717):
                     for halfstep in range(8):
                         for pin in range(4):
-                            GPIO.output(ControlPin[pin], seq[halfstep][pin])
-                        time.sleep(0.0027-manx_rspeed)
+                            GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
+                        time.sleep(0.0033-manx_rspeed)
                 # Run Servo Motor to Left
                 elif(fin_x < 616):
                     for halfstep in range(8):
                         for pin in range(4):
-                            GPIO.output(ControlPin[3-pin], seq[halfstep][pin])
-                        time.sleep(0.0027-manx_lspeed)
+                            GPIO.output(ControlPin[pin], seq[halfstep][pin])
+                        time.sleep(0.0032-manx_lspeed)
                 else:
                     pass
+                
             elif(tmp[0] == 'RT'):
-                manx_rspeed = (fin_x - 550)/400000
-                manx_lspeed = (fin_x - 450)/400000
+                manx_rspeed = (fin_x - 550)/225000
+                manx_lspeed = (fin_x - 450)/225000
                 # Run Stepper Motor to Right
                 if(fin_x > 550):
                     if(distance > 4.4):
                         for halfstep in range(8):
                             for pin in range(4):
                                 GPIO.output(ControlPin_Rail[pin], seq[halfstep][pin])
-                            time.sleep(0.0027-manx_rspeed)
+                            time.sleep(0.0030-manx_rspeed)
                     elif(distance == 0):
                         pass
 
@@ -224,7 +225,7 @@ def runStepper_x():
                         for halfstep in range(8):
                             for pin in range(4):
                                 GPIO.output(ControlPin_Rail[3-pin], seq[halfstep][pin])
-                            time.sleep(0.0027-manx_lspeed)
+                            time.sleep(0.0031-manx_lspeed)
                     elif(distance == 0):
                         pass
                 else:
@@ -240,10 +241,10 @@ def runServo_y():
         global bSerData
         global bdataInfo
 
-        if(duty_y > 1820):
-            duty_y = 1820
-        if(duty_y < 1120):
-            duty_y = 1120
+        if(duty_y > 1770):
+            duty_y = 1770
+        if(duty_y < 1170):
+            duty_y = 1170
 
         if(exception_flag == 1):
             print("test")
@@ -262,19 +263,19 @@ def runServo_y():
             # Run Servo Motor to Right
             if(fin_y > 300):
                 duty_y = duty_y - many_uspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 200):
                 duty_y = duty_y - many_dspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             else:
@@ -285,19 +286,19 @@ def runServo_y():
             # Run Servo Motor to Right
             if(fin_y > 400):
                 duty_y = duty_y - many_uspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 300):
                 duty_y = duty_y - many_dspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             else:
@@ -308,19 +309,19 @@ def runServo_y():
             # Run Servo Motor to Right
             if(fin_y > 500):
                 duty_y = duty_y - many_uspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 400):
                 duty_y = duty_y - many_dspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             else:
@@ -331,19 +332,19 @@ def runServo_y():
             # Run Servo Motor to Right
             if(fin_y > 580):
                 duty_y = duty_y - many_uspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             # Run Servo Motor to Left
             elif(fin_y < 500):
                 duty_y = duty_y - many_dspeed
-                if(duty_y > 1820):
-                    duty_y = 1820
-                if(duty_y < 1120):
-                    duty_y = 1120
+                if(duty_y > 1770):
+                    duty_y = 1770
+                if(duty_y < 1170):
+                    duty_y = 1170
                 servo_y.set_servo_pulsewidth(25, duty_y)
                 time.sleep(0.02)
             else:
