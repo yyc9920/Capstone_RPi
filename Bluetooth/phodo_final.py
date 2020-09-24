@@ -26,6 +26,7 @@ bdataInfo = [0, 'S']
 duty_y = 1470 # Perpendicular duty cycle
 servo_y.set_servo_pulsewidth(25, 1470)
 time.sleep(2)
+servo_y.set_servo_pulsewidth(25, 0)
 
 ControlPin = [7, 11, 13, 15]
 ControlPin_Rail = [29, 31, 33, 35]
@@ -89,6 +90,7 @@ def readSerialLine():
         if(b_device.exists() == True):
             # Read Coordinates String via Bluetooth Communication
             try:
+                servo_y = pigpio.pi()
                 ser = serial.Serial('/dev/rfcomm0')
                 bSerData = ser.readline()
                 bSerData = bSerData.decode('utf-8')
@@ -96,14 +98,14 @@ def readSerialLine():
             except serial.serialutil.SerialException:
                 fin_x = 500
                 fin_y = 350
-                servo_y.set_servo_pulsewidth(25, 1470)
+                servo_y.stop()
                 print('\033[31m' + "Bluetooth connection lost" + '\033[0m')
                 exception_flag = 1
                 time.sleep(0.5)
                 break
         else:
             fin_x = 500
-            servo_y.set_servo_pulsewidth(25, 1470)
+            servo_y.stop()
 
         if(bSerData == 'E'):
             servo_y.set_servo_pulsewidth(25, 1470)
